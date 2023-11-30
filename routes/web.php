@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ManagementStockController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,5 +21,8 @@ Route::get('/register', [AuthenticationController::class, 'register']);
 Route::post('/register', [AuthenticationController::class, 'store']);
 Route::post('/logout', [AuthenticationController::class, 'logout']);
 
-
+// route dashboard
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
+
+// route management stock
+Route::get('/management-stock', [ManagementStockController::class, 'index'])->middleware('auth');
