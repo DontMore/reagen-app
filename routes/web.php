@@ -29,8 +29,13 @@ Route::post('/logout', [AuthenticationController::class, 'logout']);
 Route::get('/dashboard', [DashboardController::class, 'index'])->middleware('auth');
 
 // route management stock
-Route::get('/management-stock', [ManagementStockController::class, 'index'])->middleware('auth');
+Route::get('/management-stock', [ManagementStockController::class, 'index'])->name('management-stock')->middleware('auth');
 Route::get('/add-reagen', [ManagementStockController::class, 'addReagen'])->middleware('auth');
+Route::post('/add-reagen', [ManagementStockController::class, 'addReagenStore'])->middleware('auth');
+Route::get('/view/{noCatalog}', [ManagementStockController::class, 'viewReagen'])->name('data.view')->middleware('auth');
+Route::get('/edit/{noCatalog}', [ManagementStockController::class, 'editReagen'])->name('data.edit')->middleware('auth');
+Route::post('/delete/{noCatalog}', [ManagementStockController::class, 'deleteReagen'])->name('data.delete')->middleware('auth');
+Route::post('/update/{noCatalog}', [ManagementStockController::class, 'updateReagen'])->name('data.update')->middleware('auth');
 
 // route logbook
 Route::get('/logbook', [LogbookController::class, 'index'])->middleware('auth');
