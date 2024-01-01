@@ -41,7 +41,7 @@
         </div>
       </div>
       <!-- perulangan -->
-          @foreach($data as $item)
+          @foreach($reagens as $item)
       <div class="row mb-3">
             <div class="col">
               {{ $item->noCatalog }}
@@ -56,13 +56,13 @@
             </div>
 
             <div class="col">
-              Amount
+            {{ $item->totalStock }}
             </div>
 
             <div class="col">
               <div class="row">
                   <a href="{{ route('data.view', ['noCatalog' => $item->noCatalog]) }}">view</a> |
-                  <a href="">add</a> |
+                  <a href="/add-stock-reagen">add</a> |
                   <a href="{{ route('data.edit', ['noCatalog' => $item->noCatalog]) }}">edit</a>
                   <form action="{{ route('data.delete', ['noCatalog' => $item->noCatalog]) }}" method="POST">
                         @csrf

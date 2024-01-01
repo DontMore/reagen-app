@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Reagen;
+use App\Models\StockReagen;
 
 class ManagementStockController extends Controller
 {
     public function index(){
-        $data = Reagen::all();
-
-        return view('management-stock.management-stock', ['data' => $data]);
+        $reagens = Reagen::withCount(['stockReagen as totalStock' => function ($query) {
+            $query->select(\DB::raw("SUM(quantity)"));
+        }])->get();
+    
+        return view('management-stock.management-stock', compact('reagens'));
     }
 
     public function addReagen(){
@@ -84,6 +87,32 @@ class ManagementStockController extends Controller
         $data->update($validatedData);
 
         return redirect()->route('data.view', ['noCatalog' => $data->noCatalog]);
+    }
+
+    // add stock reagen
+    public function addStockReagen(){
+        $reagens = Reagen::all(['noCatalog', 'nameReagen']);
+        return view('management-stock.add-stock-reagen', compact('reagens'));
+    }
+
+    public function getReagenData($noCatalog)
+    {
+        $reagen = Reagen::where('noCatalog', $noCatalog)->first();
+        return response()->json($reagen);
+    }
+
+    public function addStock(Request $request)
+    {
+        // Validasi input data
+        $validatedDataStock = $request->validate([
+            'noCatalog' => 'required',
+            'batch' => 'required',
+            'quantity' => 'required|numeric', // Pastikan 'quantity' adalah angka
+            'expiredDate' => 'required|date', // Validasi sebagai tanggal
+            'note' => 'nullable'
+        ]);
+
+        StockReagen::create($validatedDataStock);
     }
 
 }

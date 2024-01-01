@@ -20,4 +20,11 @@ class Reagen extends Model
         'msds',
         'price'
     ];
+
+    // Relasi dengan model StockReagen
+    public function stockReagen()
+    {
+        return $this->hasMany(StockReagen::class, 'noCatalog', 'noCatalog');
+    }
+
 }
