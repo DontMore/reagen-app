@@ -41,7 +41,7 @@ Route::get('/reagen/{noCatalog}', [ManagementStockController::class, 'getReagenD
 Route::post('/add-stock-reagen', [ManagementStockController::class, 'addStock'])->middleware('auth');
 
 // route logbook
-Route::get('/logbook', [LogbookController::class, 'index'])->middleware('auth');
+Route::get('/logbook', [LogbookController::class, 'index'])->name('logbook.index')->middleware('auth'); // Route untuk menampilkan data logbook
 
 // route order
 Route::get('/order', [OrderController::class, 'index'])->middleware('auth');

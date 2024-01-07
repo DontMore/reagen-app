@@ -16,7 +16,11 @@
 
         <!-- search -->
         <div class="mb-3 col-md-10">
-          <input type="text" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          <!-- Form input Search -->
+          <form action="{{ route('management-stock') }}" method="GET">
+                <input type="text" name="keyword" class="form-control" placeholder="Cari...">
+                <button type="submit">Cari</button>
+            </form>
         </div>
       </div>
           

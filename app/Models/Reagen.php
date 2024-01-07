@@ -11,6 +11,10 @@ class Reagen extends Model
 
     protected $primaryKey = 'noCatalog';
 
+    public $incrementing = 'noCatalog';
+
+    protected $keyType = 'string';
+
     protected $fillable = [
         'noCatalog',
         'nameReagen',
